@@ -1,12 +1,9 @@
 <div [ngClass]="{'dark-theme': darkMode}">
 	<mat-toolbar color="primary" class="title mat-elevation-z6">
-        Code Beautifier
+        GoOnlineTools Code Beautifier
         <mat-slide-toggle class="theme-toggle" [(ngModel)]="darkMode" (change)="setLocalStorage('darkMode', darkMode)">
             Dark Mode
         </mat-slide-toggle>
-        <button mat-raised-button color="warn" class="reset" (click)="clearStorageOptions()" style="text-transform: uppercase;">
-            Reset Storage
-        </button>
 	</mat-toolbar>
 	<div id="selections-language" class="source-div">
 		<mat-select class="select" [(ngModel)]="selectedLanguageType" (ngModelChange)="changeLanguageType()" 
@@ -17,6 +14,16 @@
 			<mat-option value="json">Beautify JSON</mat-option>
 			<mat-option value="sql">Beautify SQL</mat-option>
 		</mat-select>
+	</div>
+	<div class="source-div">
+		<mat-card id="code-area">
+            <ngx-codemirror [(ngModel)]="code" [autoFocus]="true" [options]="codeOptions" 
+                (ngModelChange)="setLocalStorage('code', code)">
+            </ngx-codemirror>
+		</mat-card>
+		<button mat-raised-button color="primary" class="beautify" (click)="beautify()" style="text-transform: uppercase;">
+            Beautify {{selectedLanguageType}} Code
+        </button>
 	</div>
 	<div id="selections-table" class="source-div">
 		<mat-expansion-panel>
@@ -170,15 +177,5 @@
 				</tr>
 			</table>
 		</mat-expansion-panel>
-	</div>
-	<div class="source-div">
-		<mat-card id="code-area">
-            <ngx-codemirror [(ngModel)]="code" [autoFocus]="true" [options]="codeOptions" 
-                (ngModelChange)="setLocalStorage('code', code)">
-            </ngx-codemirror>
-		</mat-card>
-		<button mat-raised-button color="primary" class="beautify" (click)="beautify()" style="text-transform: uppercase;">
-            Beautify {{selectedLanguageType}} Code
-        </button>
 	</div>
 </div>
